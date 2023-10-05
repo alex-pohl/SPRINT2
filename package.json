@@ -5,6 +5,7 @@
   "name": "sprint2",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -13,5 +14,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/inquirer": "^9.0.3",
+    "d": "^1.0.1",
+    "inquirer": "^9.2.11"
+  }
 }

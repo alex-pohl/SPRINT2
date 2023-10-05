@@ -1,6 +1,6 @@
 //DEBOUNCE FUNCTION
 
-const debounce = (fn: Function, ms = 4000) => {
+export const debounce = (fn: Function, ms: number) => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
     return function (this: any, ...args: any[]){
@@ -9,10 +9,15 @@ const debounce = (fn: Function, ms = 4000) => {
     }
 }
 
-function printSomething(whatever: string){
+let delay: number = 0;
+export function printSomething(whatever: string, ms: number){
+    delay = ms;
     console.log(whatever);
+
 }
 
-let printDebounced = debounce(printSomething);
 
-printDebounced('This is my text to print');
+export let printDebounced = debounce(printSomething, delay);
+
+printDebounced('This is my text to print', 2000);
+
