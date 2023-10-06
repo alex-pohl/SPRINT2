@@ -1,23 +1,37 @@
 //DEBOUNCE FUNCTION
+import inquirer from "inquirer";
 
 export const debounce = (fn: Function, ms: number) => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
     return function (this: any, ...args: any[]){
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => fn.apply(this, args), ms)
+        timeoutId = setTimeout(() => {
+            console.log(...args);
+            fn.apply(this, args);}, ms)
+        }
     }
-}
-
-let delay: number = 0;
-export function printSomething(whatever: string, ms: number){
-    delay = ms;
-    console.log(whatever);
-
-}
 
 
-export let printDebounced = debounce(printSomething, delay);
 
-printDebounced('This is my text to print', 2000);
+const answers: {
+    messageToPrint: string,
+    timer: number
+} = await inquirer.prompt([
+    {
+        type: "input",
+        name: "messageToPrint",
+        message: 'Please write a message to debounce:\n '
+    },{
+        type: "number",
+        name: "timer",
+        message: "how much delay do you want? (ms):\n "
+    }
+]);
+
+let {messageToPrint, timer} = answers;
+export let printDebounced = debounce(()=> messageToPrint, timer );
+
+
+printDebounced(messageToPrint);
 
