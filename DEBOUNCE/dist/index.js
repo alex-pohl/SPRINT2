@@ -10,9 +10,6 @@ export const debounce = (fn, ms) => {
         }, ms);
     };
 };
-// export function printSomething(whatever: string, ms: number){
-//     console.log(whatever);
-// }
 const answers = await inquirer.prompt([
     {
         type: "input",
