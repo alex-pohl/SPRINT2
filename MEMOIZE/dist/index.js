@@ -1,5 +1,5 @@
 //MEMOIZE FUNCTION
-import inquirer from "inquirer";
+
 function memoize(fn) {
     const cache = new Map();
     return function (...args) {
@@ -19,6 +19,7 @@ function operation(n) {
 }
 const memoizedOperation = memoize(operation);
 let numberToCompute;
+import inquirer from "inquirer";
 const answers = await inquirer.prompt([
     {
         type: "input",
