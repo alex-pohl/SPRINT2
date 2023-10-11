@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MEMOIZE function",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc"
@@ -10,6 +11,9 @@
   "author": "alex pohl",
   "license": "ISC",
   "dependencies": {
+    "@types/inquirer": "^9.0.4",
+    "call-bind": "^1.0.2",
+    "inquirer": "^9.2.11",
     "tsc": "^2.0.4"
   },
   "devDependencies": {

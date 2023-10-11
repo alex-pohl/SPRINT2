@@ -1,5 +1,5 @@
 //MEMOIZE FUNCTION
-
+import inquirer from "inquirer";
 function memoize(fn: Function) {
   const cache = new Map();
 
@@ -12,24 +12,37 @@ function memoize(fn: Function) {
 
     const result = fn(...args);
     cache.set(key, result);
-    console.log(cache);
     return result;
   };
 }
 
-// Example usage:
-
-function expensiveOperation(n: number) {
+//FUNCTION TO BE ADAPTED TO THE SITUATION
+function operation(n: number) {
   console.log(`Computing the result for ${n}`);
+  console.log(n*2)
   return n * 2;
 }
 
-const memoizedExpensiveOperation = memoize(expensiveOperation);
+const memoizedOperation = memoize(operation);
 
-console.log(memoizedExpensiveOperation(5));
-console.log(memoizedExpensiveOperation(15));
-console.log(memoizedExpensiveOperation(52));
-console.log(memoizedExpensiveOperation(55));
-console.log(memoizedExpensiveOperation(57));
+
+
+// CLI
+
+let numberToCompute;
+
+const answers: {
+    number: number,
+} = await inquirer.prompt([
+    {
+        type: "input",
+        name: "number",
+        message: 'Please input a number to compute on:\n '
+    }
+]);
+
+numberToCompute = answers.number;
+memoizedOperation(numberToCompute);
+
 
 
