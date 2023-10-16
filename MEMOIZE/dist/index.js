@@ -1,6 +1,6 @@
 //MEMOIZE FUNCTION
 
-function memoize(fn) {
+export function memoize(fn) {
     const cache = new Map();
     return function (...args) {
         const key = args.join('-');
@@ -12,12 +12,12 @@ function memoize(fn) {
         return result;
     };
 }
-function operation(n) {
+export function operation(n) {
     console.log(`Computing the result for ${n}`);
     console.log(n * 2);
     return n * 2;
 }
-const memoizedOperation = memoize(operation);
+export const memoizedOperation = memoize(operation);
 let numberToCompute;
 import inquirer from "inquirer";
 const answers = await inquirer.prompt([
