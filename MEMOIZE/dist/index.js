@@ -1,6 +1,6 @@
 //MEMOIZE FUNCTION
-
-export function memoize(fn) {
+import inquirer from "inquirer";
+function memoize(fn) {
     const cache = new Map();
     return function (...args) {
         const key = args.join('-');
@@ -9,23 +9,40 @@ export function memoize(fn) {
         }
         const result = fn(...args);
         cache.set(key, result);
+        console.log(cache);
         return result;
     };
 }
-export function operation(n) {
+//FUNCTION TO BE ADAPTED TO THE SITUATION
+function operation(n) {
     console.log(`Computing the result for ${n}`);
     console.log(n * 2);
     return n * 2;
 }
-export const memoizedOperation = memoize(operation);
-let numberToCompute;
-import inquirer from "inquirer";
-const answers = await inquirer.prompt([
-    {
-        type: "input",
-        name: "number",
-        message: 'Please input a number to compute on:\n '
+const memoizedOperation = memoize(operation);
+// CLI
+const cliWithMemoize = async () => {
+    while (true) {
+        const answers = await inquirer.prompt([
+            {
+                type: "input",
+                name: "number",
+                message: 'Please input a number to compute on:\n '
+            }
+        ]);
+        const input = answers.number;
+        if (isNaN(Number(input))) {
+            break;
+        }
+        else {
+            const numberToCompute = input;
+            if (!isNaN(numberToCompute)) {
+                memoizedOperation(numberToCompute);
+            }
+            else {
+                console.log('Incorrect input');
+            }
+        }
     }
-]);
-numberToCompute = answers.number;
-memoizedOperation(numberToCompute);
+};
+cliWithMemoize();

@@ -12,6 +12,7 @@ function memoize(fn: Function) {
 
     const result = fn(...args);
     cache.set(key, result);
+    console.log(cache)
     return result;
   };
 }
@@ -29,20 +30,33 @@ const memoizedOperation = memoize(operation);
 
 // CLI
 
-let numberToCompute;
+const cliWithMemoize = async() => {
+  while (true){
+    const answers: {
+      number: number,
+  } = await inquirer.prompt([
+      {
+          type: "input",
+          name: "number",
+          message: 'Please input a number to compute on:\n '
+      }
+  ]);
+  const input = answers.number;
 
-const answers: {
-    number: number,
-} = await inquirer.prompt([
-    {
-        type: "input",
-        name: "number",
-        message: 'Please input a number to compute on:\n '
+  if (isNaN(Number(input))){
+    break;
+  }else{
+    const numberToCompute = input;
+    if (!isNaN(numberToCompute)){
+      memoizedOperation(numberToCompute)
+    }else{
+      console.log('Incorrect input')  
     }
-]);
+  }
+  }
+}
 
-numberToCompute = answers.number;
-memoizedOperation(numberToCompute);
+cliWithMemoize();
 
 
 
