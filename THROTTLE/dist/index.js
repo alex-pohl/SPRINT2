@@ -1,21 +1,17 @@
-import inquirer from 'inquirer';
-const logInput = async () => {
-    const questions = [{
-            type: 'input',
-            name: 'input',
-            message: 'Type something (press Ctrl+C to exit):',
-        }];
+const throttleInput = (inputCallback) => {
     let allowProcessInput = true;
-    while (true) {
-        const answers = await inquirer.prompt(questions);
-        const userInput = answers.input;
+    const inputInterval = 1000;
+    return (userInput) => {
         if (allowProcessInput) {
-            console.log('You are typing: ', userInput);
+            inputCallback(userInput);
             allowProcessInput = false;
             setTimeout(() => {
                 allowProcessInput = true;
-            }, 1000);
+            }, inputInterval);
         }
-    }
+    };
 };
-logInput();
+const processInput = (userInput) => {
+    console.log('You are typing: ', userInput);
+};
+export { throttleInput, processInput };
